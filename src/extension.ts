@@ -9,9 +9,9 @@ import * as path from "path";
 import * as fs from "fs-extra";
 import * as os from "os";
 import * as vscode from "vscode";
+import * as child_process from "child_process";
 
-const name = "extra_config_swap";
-const defPath = path.join(os.homedir(), `.${name}`);
+const defPath = path.join(os.homedir(), ".extra_config_swap");
 const historyName = "History";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -34,6 +34,32 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("extra_config_swap.swap", (...res) => {
       console.log("extra_config_swap.swap");
       _swapExtraConfigFile(res[0].fsPath || "");
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("extra_config_swap.git.assume.unchanged", (...res) => {
+      console.log("extra_config_swap.git.assume.unchanged");
+      let fsPath: string = res[0].fsPath || "";
+      if (fsPath) {
+        // let cmd = "git update-index --assume-unchanged " + fsPath;
+        let workspaceFolder = vscode.workspace.workspaceFolders?.find((r) => fsPath.startsWith(r.uri.fsPath));
+        let cwd = workspaceFolder?.uri.fsPath;
+        child_process.execFileSync("git", ["update-index", "--assume-unchanged", fsPath], { cwd });
+      }
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("extra_config_swap.git.no.assume.unchanged", (...res) => {
+      console.log("extra_config_swap.git.no.assume.unchanged");
+      let fsPath = res[0].fsPath || "";
+      if (fsPath) {
+        // let cmd = "git update-index --no-assume-unchanged " + fsPath;
+        let workspaceFolder = vscode.workspace.workspaceFolders?.find((r) => fsPath.startsWith(r.uri.fsPath));
+        let cwd = workspaceFolder?.uri.fsPath;
+        child_process.execFileSync("git", ["update-index", "--no-assume-unchanged", fsPath], { cwd });
+      }
     })
   );
 }
@@ -70,7 +96,9 @@ async function _fileQuickPick(fileList: string[]): Promise<string | undefined> {
 async function _swapExtraConfigFile(fsPath: string): Promise<void> {
   console.log("_swapExtraConfigFile ~ fsPath", fsPath);
   let rootPath = _initRootPath();
-  let jsonFileList = fs.readdirSync(rootPath).filter((r) => fs.statSync(r).isFile);
+  let jsonFileList = fs.readdirSync(rootPath).filter((name) => {
+    return name.endsWith(".json");
+  });
   if (jsonFileList.length === 0) {
     vscode.window.showInformationMessage("no find json");
     return;

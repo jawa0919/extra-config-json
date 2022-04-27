@@ -1,7 +1,7 @@
 {
   "name": "extra_config_swap",
-  "displayName": "extraConfig Swap",
-  "description": "Quick Swap extraConfig.json",
+  "displayName": "extraConfig Helper",
+  "description": "extraConfig.json Quick swap, Simple Save, Git Unchanged",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.57.0"
@@ -24,12 +24,24 @@
         {
           "when": "resourceFilename == extraConfig.json",
           "command": "extra_config_swap.save",
-          "group": "navigation"
+          "group": "navigation@-1"
         },
         {
           "when": "resourceFilename == extraConfig.json",
           "command": "extra_config_swap.swap",
-          "group": "navigation"
+          "group": "navigation@-2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceFilename == extraConfig.json",
+          "command": "extra_config_swap.git.assume.unchanged",
+          "group": "extra_config_swap@-1"
+        },
+        {
+          "when": "resourceFilename == extraConfig.json",
+          "command": "extra_config_swap.git.no.assume.unchanged",
+          "group": "extra_config_swap@-2"
         }
       ]
     },
@@ -40,20 +52,30 @@
       },
       {
         "command": "extra_config_swap.save",
-        "title": "save extraConfig.json",
+        "title": "save extraConfig.json @extra_config_swap ",
         "icon": "$(save)"
       },
       {
         "command": "extra_config_swap.swap",
-        "title": "swap extraConfig.json",
+        "title": "swap extraConfig.json @extra_config_swap ",
         "icon": "$(link)"
+      },
+      {
+        "command": "extra_config_swap.git.assume.unchanged",
+        "title": "git --assume-unchanged @extra_config_swap",
+        "icon": "$(lock)"
+      },
+      {
+        "command": "extra_config_swap.git.no.assume.unchanged",
+        "title": "git --no-assume-unchanged @extra_config_swap",
+        "icon": "$(unlock)"
       }
     ],
     "configuration": [
       {
         "title": "extra_config_swap",
         "properties": {
-          "extra_config_swap.UserExtraConfigDir": {
+          "extra_config_swap.rootPath": {
             "markdownDescription": "User ExtraConfig Dir",
             "type": "string"
           }

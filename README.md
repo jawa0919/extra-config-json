@@ -1,70 +1,48 @@
-# extra-config-json README
+# extra-config-json
 
-This is the README for your extension "extra-config-json". After writing up a brief description, we recommend including the following sections.
+`extraConfig.json` Quick swap, Simple Save, Git Unchanged
 
-## Features
+为项目配置文件`extraConfig.json`开发的插件，对其保存和修改时增加了备份，以及`git`变更监听优化。
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## 保存/切换 extraConfig.json
 
-For example if there is an image subfolder under your extension project workspace:
+在`extraConfig.json`文件上方会会有两个按钮，`link`和`save`
 
-\!\[feature X\]\(images/feature-x.png\)
+---
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![修改](docs/img/修改.gif)
 
-## Requirements
+每次切换 json 文件时会在文件夹中的`History`文件夹中备份
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+![历史](docs/img/历史.png)
 
-## Extension Settings
+---
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## git 假设提交
 
-For example:
+使用`git`假设提交命令，忽略`extraConfig.json`的变更,只本地有效
 
-This extension contributes the following settings:
+点击`Git --assume-unchanged` 时，本地修改`extraConfig.json`，不会触发 git
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+点击`Git --no-assume-unchanged` 时，取消不触发
 
-## Known Issues
+```shell
+# ignore一个文件的更改又保留其初始版本
+git update-index --assume-unchanged [file-path]
+# 取消
+git update-index --no-assume-unchanged [file-path]
+```
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+![假设提交](docs/img/git假设提交.png)
 
-## Release Notes
+---
 
-Users appreciate release notes as you update your extension.
+## 配置备份文件夹
 
-### 1.0.0
+默认备份文件夹为`用户目录`下的`.extra-config-json`文件夹，可自行修改
 
-Initial release of ...
+![配置](docs/img/配置.png)
 
-### 1.0.1
+## extra-config-json
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+欢迎大家提出想法和反馈问题 [issues](https://github.com/jawa0919/extra-config-json/issues)

@@ -10,11 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:vue",
-    "onLanguage:javascript",
-    "onLanguage:typescript",
-    "onLanguage:javascriptreact",
-    "onLanguage:typescriptreact",
+    "onLanguage:json",
     "workspaceContains:**/extraConfig.json"
   ],
   "main": "./out/extension.js",

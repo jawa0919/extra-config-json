@@ -10,17 +10,17 @@
 
 ---
 
-![修改](docs/img/修改.gif)
+![swap](./docs/img/swap.gif)
 
 每次切换 json 文件时会在文件夹中的`History`文件夹中备份
 
-![历史](docs/img/历史.png)
+![history](./docs/img/history.png)
 
 ---
 
 ## git 假设提交
 
-使用`git`假设提交命令，忽略`extraConfig.json`的变更,只本地有效
+使用`git`假设提交命令，忽略`extraConfig.json`的变更,只对本机生效
 
 点击`Git --assume-unchanged` 时，本地修改`extraConfig.json`，不会触发 git
 
@@ -33,7 +33,7 @@ git update-index --assume-unchanged [file-path]
 git update-index --no-assume-unchanged [file-path]
 ```
 
-![假设提交](docs/img/git假设提交.png)
+![假设提交](./docs/img/git_assume.png)
 
 ---
 
@@ -41,7 +41,7 @@ git update-index --no-assume-unchanged [file-path]
 
 默认备份文件夹为`用户目录`下的`.extra-config-json`文件夹，可自行修改
 
-![配置](docs/img/配置.png)
+![配置](./docs/img/setting.png)
 
 ## extra-config-json
 

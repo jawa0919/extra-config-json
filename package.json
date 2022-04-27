@@ -84,8 +84,8 @@
       {
         "title": "extra-config-json",
         "properties": {
-          "extra-config-json.rootPath": {
-            "markdownDescription": "User ExtraConfig Dir",
+          "extra-config-json.dirPath": {
+            "markdownDescription": "custom backup dirPath",
             "type": "string"
           }
         }

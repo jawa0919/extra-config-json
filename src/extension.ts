@@ -65,12 +65,18 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function _initRootPath(): string {
-  let userPath = vscode.workspace.getConfiguration().get<string>("extra-config-json.rootPath");
-  if (userPath) {
-    return userPath;
+  let dirPath = vscode.workspace.getConfiguration().get<string>("extra-config-json.dirPath");
+  if (dirPath) {
+    fs.ensureDirSync(dirPath);
+    return dirPath;
   }
   fs.ensureDirSync(defPath);
   return defPath;
+}
+
+function _findFileTextDocument(fsPath: string): vscode.TextDocument | undefined {
+  console.log("_findFileTextDocument");
+  return vscode.workspace.textDocuments.find((doc) => doc.uri.fsPath === fsPath);
 }
 
 async function _fileNameInputBox(): Promise<string | undefined> {
@@ -80,6 +86,8 @@ async function _fileNameInputBox(): Promise<string | undefined> {
 
 async function _saveExtraConfigFile(fsPath: string): Promise<void> {
   console.log("_saveExtraConfigFile ~ fsPath", fsPath);
+  let textDocument = _findFileTextDocument(fsPath);
+  await textDocument?.save();
   let rootPath = _initRootPath();
   let name = await _fileNameInputBox();
   if (name) {
@@ -95,6 +103,11 @@ async function _fileQuickPick(fileList: string[]): Promise<string | undefined> {
 
 async function _swapExtraConfigFile(fsPath: string): Promise<void> {
   console.log("_swapExtraConfigFile ~ fsPath", fsPath);
+  let textDocument = _findFileTextDocument(fsPath);
+  if (textDocument?.isDirty) {
+    vscode.window.showErrorMessage("请先 Ctrl+s 保存文件");
+    return;
+  }
   let rootPath = _initRootPath();
   let jsonFileList = fs.readdirSync(rootPath).filter((name) => {
     return name.endsWith(".json");

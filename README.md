@@ -1,30 +1,44 @@
 # extra-config-json
 
-`extraConfig.json` Quick swap, Simple Save, Git Unchanged
+为项目配置文件 `extraConfig.json` 开发的 vscode 插件
 
-为项目配置文件`extraConfig.json`开发的插件，对其保存和修改时增加了备份，以及`git`变更监听优化。
+快速切换，简单保存，忽略 Git
 
-## 保存/切换 extraConfig.json
+Quick swap, Simple Save, Git Unchanged
 
-在`extraConfig.json`文件上方会会有两个按钮，`link`和`save`
+# 功能
 
----
+- [x] 保存 `extraConfig.json` 到用户目录文件夹备份
+- [x] 快速替换本地保存的 `extraConfig.json`
+- [x] 本地记录切换历史文件，方便查找溯源
+- [x] 本地忽略 `extraConfig.json` 的变更，`git`提交时无视变更
+- [x] 自定义备份文件夹
+
+## 切换/保存
+
+在`extraConfig.json`文件右上方有两个功能按钮，点击可以切换/保存`extraConfig.json`文件
 
 ![swap](./docs/img/swap.gif)
 
-每次切换 json 文件时会在文件夹中的`History`文件夹中备份
+## 记录历史
+
+切换`extraConfig.json`文件时会备份文件夹下的`History`文件夹中备份
 
 ![history](./docs/img/history.png)
-
----
 
 ## git 假设提交
 
 使用`git`假设提交命令，忽略`extraConfig.json`的变更,只对本机生效
 
-点击按钮`Git --assume-unchanged @extra-config-json` 后，本地修改`extraConfig.json`时，不会触发 git
+右键点击文件时出现两个文件功能选项
 
-点击按钮`Git --no-assume-unchanged @extra-config-json` ，可以取消不触发状态
+- `Git --assume-unchanged @extra-config-json`
+
+  点击后本地修改`extraConfig.json`时，不会触发`git`变更记录，保留其初始版本
+
+- `Git --no-assume-unchanged @extra-config-json` ，
+
+  点击后取消不触发状态
 
 ```shell
 # ignore一个文件的更改又保留其初始版本
@@ -35,14 +49,14 @@ git update-index --no-assume-unchanged [file-path]
 
 ![假设提交](./docs/img/git_assume.png)
 
----
+## 自定义备份文件夹
 
-## 配置备份文件夹
+默认备份文件夹为`用户文件目录`下的`.extra-config-json`文件夹
 
-默认备份文件夹为`用户目录`下的`.extra-config-json`文件夹，可自行修改
+也可自行配置，在 `vscode`的设置中找到如下配置项，写入文件夹地址
 
 ![配置](./docs/img/setting.png)
 
-## extra-config-json
+## 其他
 
-欢迎大家提出想法和反馈问题 [issues](https://github.com/jawa0919/extra-config-json/issues)
+欢迎大家 `提出想法` 和 `反馈问题` [issues](https://github.com/jawa0919/extra-config-json/issues)

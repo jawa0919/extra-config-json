@@ -1,6 +1,6 @@
-# extra_config_channel README
+# extra_config_swap README
 
-This is the README for your extension "extra_config_channel". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "extra_config_swap". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

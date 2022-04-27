@@ -1,7 +1,7 @@
 {
-  "name": "extra_config_channel",
-  "displayName": "extra_config_channel",
-  "description": "",
+  "name": "extra_config_swap",
+  "displayName": "extraConfig Swap",
+  "description": "Quick Swap extraConfig.json",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.57.0"
@@ -10,14 +10,54 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extraconfig-channel.helloWorld"
+    "onLanguage:vue",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "workspaceContains:**/extraConfig.json"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceFilename == extraConfig.json",
+          "command": "extra_config_swap.save",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceFilename == extraConfig.json",
+          "command": "extra_config_swap.swap",
+          "group": "navigation"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "extraconfig-channel.helloWorld",
+        "command": "extra_config_swap.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "extra_config_swap.save",
+        "title": "save extraConfig.json",
+        "icon": "$(save)"
+      },
+      {
+        "command": "extra_config_swap.swap",
+        "title": "swap extraConfig.json",
+        "icon": "$(link)"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "extra_config_swap",
+        "properties": {
+          "extra_config_swap.UserExtraConfigDir": {
+            "markdownDescription": "User ExtraConfig Dir",
+            "type": "string"
+          }
+        }
       }
     ]
   },
@@ -30,16 +70,20 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.57.0",
+    "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.0",
     "@types/node": "14.x",
+    "@types/vscode": "^1.57.0",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
+    "@vscode/test-electron": "^2.1.3",
     "eslint": "^8.11.0",
     "glob": "^7.2.0",
     "mocha": "^9.2.2",
-    "typescript": "^4.5.5",
-    "@vscode/test-electron": "^2.1.3"
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "fs-extra": "^10.1.0"
   }
 }

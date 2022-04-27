@@ -22,9 +22,9 @@
 
 使用`git`假设提交命令，忽略`extraConfig.json`的变更,只对本机生效
 
-点击`Git --assume-unchanged` 时，本地修改`extraConfig.json`，不会触发 git
+点击按钮`Git --assume-unchanged @extra-config-json` 后，本地修改`extraConfig.json`时，不会触发 git
 
-点击`Git --no-assume-unchanged` 时，取消不触发
+点击按钮`Git --no-assume-unchanged @extra-config-json` ，可以取消不触发状态
 
 ```shell
 # ignore一个文件的更改又保留其初始版本

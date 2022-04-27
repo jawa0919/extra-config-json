@@ -3,6 +3,19 @@
   "displayName": "extraConfigJson",
   "description": "extraConfig.json Quick swap, Simple Save, Git Unchanged",
   "version": "0.0.1",
+  "publisher": "jawa0919",
+  "author": {
+    "name": "jawa0919",
+    "email": "jawa0919@163.com"
+  },
+  "homepage": "https://github.com/jawa0919/extra-config-json",
+  "bugs": {
+    "url": "https://github.com/jawa0919/extra-config-json/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jawa0919/extra-config-json.git"
+  },
   "engines": {
     "vscode": "^1.57.0"
   },

@@ -1,5 +1,7 @@
 # extra-config-json
 
+[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/jawa0919.extra-config-json.svg)](https://marketplace.visualstudio.com/items?itemName=jawa0919.extra-config-json) [![Installs](https://vsmarketplacebadge.apphb.com/installs/jawa0919.extra-config-json.svg)](https://marketplace.visualstudio.com/items?itemName=jawa0919.extra-config-json) [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/jawa0919.extra-config-json.svg)](https://marketplace.visualstudio.com/items?itemName=jawa0919.extra-config-json) [![GitHub issues](https://img.shields.io/github/issues/jawa0919/extra-config-json)](https://github.com/jawa0919/extra-config-json/issues)![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/jawa0919/extra-config-json)
+
 为项目配置文件 `extraConfig.json` 开发的 vscode 插件
 
 快速切换，简单保存，忽略 Git

@@ -11,35 +11,35 @@ import * as os from "os";
 import * as vscode from "vscode";
 import * as child_process from "child_process";
 
-const defPath = path.join(os.homedir(), ".extra_config_json");
+const defPath = path.join(os.homedir(), ".extra-config-json");
 const historyName = "History";
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "extra_config_json" is now active!');
+  console.log('Congratulations, your extension "extra-config-json" is now active!');
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("extra_config_json.helloWorld", () => {
-      vscode.window.showInformationMessage("Hello World from extra_config_json!");
+    vscode.commands.registerCommand("extra-config-json.helloWorld", () => {
+      vscode.window.showInformationMessage("Hello World from extra-config-json!");
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("extra_config_json.save", async (...res) => {
-      console.log("extra_config_json.save");
+    vscode.commands.registerCommand("extra-config-json.save", async (...res) => {
+      console.log("extra-config-json.save");
       _saveExtraConfigFile(res[0].fsPath || "");
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("extra_config_json.swap", (...res) => {
-      console.log("extra_config_json.swap");
+    vscode.commands.registerCommand("extra-config-json.swap", (...res) => {
+      console.log("extra-config-json.swap");
       _swapExtraConfigFile(res[0].fsPath || "");
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("extra_config_json.git.assume.unchanged", (...res) => {
-      console.log("extra_config_json.git.assume.unchanged");
+    vscode.commands.registerCommand("extra-config-json.git.assume.unchanged", (...res) => {
+      console.log("extra-config-json.git.assume.unchanged");
       let fsPath: string = res[0].fsPath || "";
       if (fsPath) {
         // let cmd = "git update-index --assume-unchanged " + fsPath;
@@ -51,8 +51,8 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("extra_config_json.git.no.assume.unchanged", (...res) => {
-      console.log("extra_config_json.git.no.assume.unchanged");
+    vscode.commands.registerCommand("extra-config-json.git.no.assume.unchanged", (...res) => {
+      console.log("extra-config-json.git.no.assume.unchanged");
       let fsPath = res[0].fsPath || "";
       if (fsPath) {
         // let cmd = "git update-index --no-assume-unchanged " + fsPath;
@@ -65,7 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function _initRootPath(): string {
-  let userPath = vscode.workspace.getConfiguration().get<string>("extra_config_json.rootPath");
+  let userPath = vscode.workspace.getConfiguration().get<string>("extra-config-json.rootPath");
   if (userPath) {
     return userPath;
   }

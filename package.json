@@ -1,5 +1,5 @@
 {
-  "name": "extra_config_json",
+  "name": "extra-config-json",
   "displayName": "extraConfigJson",
   "description": "extraConfig.json Quick swap, Simple Save, Git Unchanged",
   "version": "0.0.1",
@@ -19,59 +19,59 @@
       "editor/title": [
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra_config_json.save",
+          "command": "extra-config-json.save",
           "group": "navigation@-1"
         },
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra_config_json.swap",
+          "command": "extra-config-json.swap",
           "group": "navigation@-2"
         }
       ],
       "explorer/context": [
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra_config_json.git.assume.unchanged",
-          "group": "extra_config_json@-1"
+          "command": "extra-config-json.git.assume.unchanged",
+          "group": "extra-config-json@-1"
         },
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra_config_json.git.no.assume.unchanged",
-          "group": "extra_config_json@-2"
+          "command": "extra-config-json.git.no.assume.unchanged",
+          "group": "extra-config-json@-2"
         }
       ]
     },
     "commands": [
       {
-        "command": "extra_config_json.helloWorld",
+        "command": "extra-config-json.helloWorld",
         "title": "Hello World"
       },
       {
-        "command": "extra_config_json.save",
-        "title": "Save extraConfig.json @extra_config_json ",
+        "command": "extra-config-json.save",
+        "title": "Save extraConfig.json @extra-config-json ",
         "icon": "$(save)"
       },
       {
-        "command": "extra_config_json.swap",
-        "title": "Swap extraConfig.json @extra_config_json ",
+        "command": "extra-config-json.swap",
+        "title": "Swap extraConfig.json @extra-config-json ",
         "icon": "$(link)"
       },
       {
-        "command": "extra_config_json.git.assume.unchanged",
-        "title": "Git --assume-unchanged @extra_config_json",
+        "command": "extra-config-json.git.assume.unchanged",
+        "title": "Git --assume-unchanged @extra-config-json",
         "icon": "$(lock)"
       },
       {
-        "command": "extra_config_json.git.no.assume.unchanged",
-        "title": "Git --no-assume-unchanged @extra_config_json",
+        "command": "extra-config-json.git.no.assume.unchanged",
+        "title": "Git --no-assume-unchanged @extra-config-json",
         "icon": "$(unlock)"
       }
     ],
     "configuration": [
       {
-        "title": "extra_config_json",
+        "title": "extra-config-json",
         "properties": {
-          "extra_config_json.rootPath": {
+          "extra-config-json.rootPath": {
             "markdownDescription": "User ExtraConfig Dir",
             "type": "string"
           }

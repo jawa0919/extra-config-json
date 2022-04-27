@@ -1,6 +1,6 @@
-# extra_config_json README
+# extra-config-json README
 
-This is the README for your extension "extra_config_json". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "extra-config-json". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

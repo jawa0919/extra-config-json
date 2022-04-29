@@ -45,12 +45,17 @@
         {
           "when": "resourceFilename == extraConfig.json",
           "command": "extra-config-json.git.assume.unchanged",
-          "group": "extra-config-json@-1"
+          "group": "extra-config-json-git@-1"
         },
         {
           "when": "resourceFilename == extraConfig.json",
           "command": "extra-config-json.git.no.assume.unchanged",
-          "group": "extra-config-json@-2"
+          "group": "extra-config-json-git@-2"
+        },
+        {
+          "when": "resourceFilename == extraConfig.json",
+          "command": "extra-config-json.env.create",
+          "group": "extra-config-json-env@-3"
         }
       ]
     },
@@ -78,6 +83,11 @@
         "command": "extra-config-json.git.no.assume.unchanged",
         "title": "Git --no-assume-unchanged @extra-config-json",
         "icon": "$(unlock)"
+      },
+      {
+        "command": "extra-config-json.env.create",
+        "title": "create env file @extra-config-json",
+        "icon": "$(file-code)"
       }
     ],
     "configuration": [

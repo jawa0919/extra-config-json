@@ -43,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
       let fsPath: string = res[0].fsPath || "";
       if (fsPath) {
         // let cmd = "git update-index --assume-unchanged " + fsPath;
-        let workspaceFolder = vscode.workspace.workspaceFolders?.find((r) => fsPath.startsWith(r.uri.fsPath));
+        let workspaceFolder = _findWorkspaceFolder(fsPath);
         let cwd = workspaceFolder?.uri.fsPath;
         child_process.execFileSync("git", ["update-index", "--assume-unchanged", fsPath], { cwd });
       }
@@ -56,10 +56,17 @@ export function activate(context: vscode.ExtensionContext) {
       let fsPath = res[0].fsPath || "";
       if (fsPath) {
         // let cmd = "git update-index --no-assume-unchanged " + fsPath;
-        let workspaceFolder = vscode.workspace.workspaceFolders?.find((r) => fsPath.startsWith(r.uri.fsPath));
+        let workspaceFolder = _findWorkspaceFolder(fsPath);
         let cwd = workspaceFolder?.uri.fsPath;
         child_process.execFileSync("git", ["update-index", "--no-assume-unchanged", fsPath], { cwd });
       }
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("extra-config-json.env.create", (...res) => {
+      console.log("extra-config-json.env.create");
+      _createEnvFile(res[0].fsPath || "");
     })
   );
 }
@@ -77,6 +84,11 @@ function _initRootPath(): string {
 function _findFileTextDocument(fsPath: string): vscode.TextDocument | undefined {
   console.log("_findFileTextDocument");
   return vscode.workspace.textDocuments.find((doc) => doc.uri.fsPath === fsPath);
+}
+
+function _findWorkspaceFolder(fsPath: string): vscode.WorkspaceFolder | undefined {
+  console.log("_findWorkspaceFolder");
+  return vscode.workspace.workspaceFolders?.find((r) => fsPath.startsWith(r.uri.fsPath));
 }
 
 async function _fileNameInputBox(): Promise<string | undefined> {
@@ -136,6 +148,32 @@ async function _saveExtraConfigFileHistory(fsPath: string): Promise<void> {
   fs.ensureDirSync(historyDirPath);
   let saveFilePath = path.join(historyDirPath, `${name}.json`);
   fs.copyFileSync(fsPath, saveFilePath);
+}
+
+function _findPackageJsonPath(fsPath: string): string {
+  console.log("_findWorkspaceFolder");
+  let workspaceFolder = _findWorkspaceFolder(fsPath);
+  let packageJsonPath = path.join(workspaceFolder?.uri.fsPath || "", "package.json");
+  return packageJsonPath;
+}
+
+function _readPackageJson(fsPath: string): string {
+  console.log("_readPackageJson");
+  return "";
+}
+
+async function _createEnvFile(fsPath: string): Promise<void> {
+  console.log("_saveExtraConfigFileHistory ~ fsPath", fsPath);
+  let name = (await _fileNameInputBox()) || "";
+  if (name) {
+    let data: Record<string, any> = JSON.parse(fs.readFileSync(fsPath, "utf-8"));
+    let workspaceFolder = _findWorkspaceFolder(fsPath);
+    let bf = [`# .env.${name}.local`];
+    Object.keys(data).forEach((key) => bf.push(`${key} = ${data[key]}`));
+    bf.push("");
+    fs.writeFileSync(path.join(workspaceFolder?.uri.fsPath || "", `.env.${name}.local`), bf.join("\n"), "utf-8");
+    // TODO 2022-04-30 01:41:25 修改 package.json
+  }
 }
 
 export function deactivate() {}

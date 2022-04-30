@@ -32,71 +32,77 @@
       "editor/title": [
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra-config-json.save",
+          "command": "extra-config-json.json.save",
           "group": "navigation@-1"
         },
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra-config-json.swap",
+          "command": "extra-config-json.json.swap",
           "group": "navigation@-2"
+        },
+        {
+          "when": "resourceFilename =~ /^.env.*/",
+          "command": "extra-config-json.env.save",
+          "group": "navigation@-1"
         }
       ],
       "explorer/context": [
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra-config-json.git.assume.unchanged",
-          "group": "extra-config-json-git@-1"
+          "command": "extra-config-json.json.git.assume",
+          "group": "json-git@-1"
         },
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra-config-json.git.no.assume.unchanged",
-          "group": "extra-config-json-git@-2"
+          "command": "extra-config-json.json.git.no.assume",
+          "group": "json-git@-2"
         },
         {
           "when": "resourceFilename == extraConfig.json",
-          "command": "extra-config-json.env.create",
-          "group": "extra-config-json-env@-1"
+          "command": "extra-config-json.json.to.env",
+          "group": "json-env@-1"
         },
         {
           "when": "resourceFilename =~ /^.env.*/",
-          "command": "extra-config-json.env.create.json",
-          "group": "extra-config-json-env@-1"
+          "command": "extra-config-json.env.to.json",
+          "group": "env-json@-1"
         }
       ]
     },
     "commands": [
       {
-        "command": "extra-config-json.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "extra-config-json.save",
-        "title": "Save extraConfig.json @extra-config-json ",
+        "command": "extra-config-json.json.save",
+        "title": "@extraConfigJson Save extraConfig.json",
         "icon": "$(save)"
       },
       {
-        "command": "extra-config-json.swap",
-        "title": "Swap extraConfig.json @extra-config-json ",
+        "command": "extra-config-json.json.swap",
+        "title": "@extraConfigJson Swap extraConfig.json",
         "icon": "$(link)"
       },
       {
-        "command": "extra-config-json.git.assume.unchanged",
-        "title": "Git --assume-unchanged @extra-config-json",
-        "icon": "$(lock)"
-      },
-      {
-        "command": "extra-config-json.git.no.assume.unchanged",
-        "title": "Git --no-assume-unchanged @extra-config-json",
-        "icon": "$(unlock)"
-      },
-      {
-        "command": "extra-config-json.env.create",
-        "title": "create env file @extra-config-json",
+        "command": "extra-config-json.json.to.env",
+        "title": "@extraConfigJson extraConfig.json to env",
         "icon": "$(file-code)"
       },
       {
-        "command": "extra-config-json.env.create.json",
-        "title": "create extraConfig.json file @extra-config-json",
+        "command": "extra-config-json.json.git.assume",
+        "title": "@extraConfigJson Git --assume-unchanged",
+        "icon": "$(lock)"
+      },
+      {
+        "command": "extra-config-json.json.git.no.assume",
+        "title": "@extraConfigJson Git --no-assume-unchanged",
+        "icon": "$(unlock)"
+      },
+      {
+        "command": "extra-config-json.env.save",
+        "title": "@extraConfigJson Save env file",
+        "icon": "$(save)"
+      },
+      {
+        "command": "extra-config-json.env.to.json",
+        "title": "@extraConfigJson env to extraConfig.json",
         "icon": "$(file-code)"
       }
     ],
@@ -105,8 +111,18 @@
         "title": "extra-config-json",
         "properties": {
           "extra-config-json.dirPath": {
-            "markdownDescription": "custom backup dirPath",
+            "markdownDescription": "custom dirPath",
             "type": "string"
+          },
+          "extra-config-json.onlyVueAppXX": {
+            "markdownDescription": "only VUE_APP_XX field",
+            "type": "boolean",
+            "default": true
+          },
+          "extra-config-json.onlyReactAppXX": {
+            "markdownDescription": "only REACT_APP_XX field",
+            "type": "boolean",
+            "default": true
           }
         }
       }
@@ -135,6 +151,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "fs-extra": "^10.1.0"
+    "fs-extra": "^10.1.0",
+    "read-pkg-up": "^7.0.1"
   }
 }

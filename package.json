@@ -55,7 +55,12 @@
         {
           "when": "resourceFilename == extraConfig.json",
           "command": "extra-config-json.env.create",
-          "group": "extra-config-json-env@-3"
+          "group": "extra-config-json-env@-1"
+        },
+        {
+          "when": "resourceFilename =~ /^.env.*/",
+          "command": "extra-config-json.env.create.json",
+          "group": "extra-config-json-env@-1"
         }
       ]
     },
@@ -87,6 +92,11 @@
       {
         "command": "extra-config-json.env.create",
         "title": "create env file @extra-config-json",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "extra-config-json.env.create.json",
+        "title": "create extraConfig.json file @extra-config-json",
         "icon": "$(file-code)"
       }
     ],

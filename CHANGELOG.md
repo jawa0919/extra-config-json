@@ -1,5 +1,9 @@
 # Change Log
 
+# 0.0.4
+
+- add json2env/env2json
+
 # 0.0.3
 
 - fix readme img

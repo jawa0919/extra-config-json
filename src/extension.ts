@@ -69,6 +69,13 @@ export function activate(context: vscode.ExtensionContext) {
       _createEnvFile(res[0].fsPath || "");
     })
   );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("extra-config-json.env.create.json", (...res) => {
+      console.log("extra-config-json.env.create.json");
+      _createJsonFile(res[0].fsPath || "");
+    })
+  );
 }
 
 function _initRootPath(): string {
@@ -163,7 +170,7 @@ function _readPackageJson(fsPath: string): string {
 }
 
 async function _createEnvFile(fsPath: string): Promise<void> {
-  console.log("_saveExtraConfigFileHistory ~ fsPath", fsPath);
+  console.log("_createEnvFile ~ fsPath", fsPath);
   let name = (await _fileNameInputBox()) || "";
   if (name) {
     let data: Record<string, any> = JSON.parse(fs.readFileSync(fsPath, "utf-8"));
@@ -174,6 +181,26 @@ async function _createEnvFile(fsPath: string): Promise<void> {
     fs.writeFileSync(path.join(workspaceFolder?.uri.fsPath || "", `.env.${name}.local`), bf.join("\n"), "utf-8");
     // TODO 2022-04-30 01:41:25 修改 package.json
   }
+}
+
+async function _createJsonFile(fsPath: string): Promise<void> {
+  console.log("_createJsonFile ~ fsPath", fsPath);
+  let data = fs.readFileSync(fsPath, "utf-8");
+  let temp: Record<string, string> = {};
+  data.split("\n").forEach((line) => {
+    if (line.startsWith("#")) {
+      return;
+    }
+    let [key, value] = line.split("=").map((v) => v.trim());
+    temp[key] = value;
+  });
+  let wf = _findWorkspaceFolder(fsPath);
+  let jsonPath = path.join(wf?.uri.fsPath || "", "public", `extraConfig.json`);
+  if (fs.existsSync(jsonPath)) {
+    _saveExtraConfigFileHistory(jsonPath);
+  }
+  fs.ensureFileSync(jsonPath);
+  fs.writeFileSync(jsonPath, JSON.stringify(temp, null, 2), "utf-8");
 }
 
 export function deactivate() {}

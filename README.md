@@ -15,7 +15,8 @@ Quick swap, Simple Save, Git Unchanged
 - [x] 本地记录切换历史文件，方便查找溯源
 - [x] 本地忽略 `extraConfig.json` 的变更，`git`提交时无视变更
 - [x] 自定义备份文件夹
-- [x] `extraConfig.json`生成 `env.*.local`
+- [x] `extraConfig.json`生成 `.env.*.local`
+- [x] `.env.*`生成 `extraConfig.json`
 - [ ] 生成配置是，筛选不符合`vue`前缀`VUE_APP_`的数据
 - [ ] 生成配置是，筛选不符合`react`前缀`REACT_APP_XX`的数据
 - [ ] 在`package.json` 的添加 env 的执行脚本

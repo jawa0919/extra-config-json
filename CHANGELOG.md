@@ -1,5 +1,9 @@
 # Change Log
 
+# 0.1.0
+
+- fix auto add pakcage.json script
+
 # 0.0.4
 
 - add json2env/env2json

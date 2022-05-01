@@ -19,7 +19,7 @@ import {
   showQuickPick,
   dateTimeName,
   findWorkspaceFolder,
-  jsonAnyToString,
+  object2Kv,
 } from "./util";
 
 export const jsonFileCMD = [
@@ -77,17 +77,17 @@ async function _jsonToEnv(...res: any[]) {
 
   let envLocalName = await showQuickPick(envLocalNameList);
   if (envLocalName) {
-    const jsonFileData: Record<string, any> = readJsonSync(fsPath);
+    const jsonObjectData: Record<string, any> = readJsonSync(fsPath);
 
-    let jsonData = jsonAnyToString(jsonFileData);
+    let envKvData = object2Kv(jsonObjectData);
     let pkgData = loadPkgData(fsPath);
 
-    jsonData = vueField(jsonData, pkgData);
-    jsonData = reactField(jsonData, pkgData);
+    envKvData = vueField(envKvData, pkgData);
+    envKvData = reactField(envKvData, pkgData);
 
     let wf = findWorkspaceFolder(fsPath);
     let bf = [`# ${envLocalName}`];
-    Object.keys(jsonData).forEach((k) => bf.push(`${k} = ${jsonData[k]}`));
+    Object.keys(envKvData).forEach((k) => bf.push(`${k} = ${envKvData[k]}`));
     let envPath = join(wf?.uri.fsPath || "", envLocalName);
     writeFileSync(envPath, bf.join("\n"), "utf-8");
     addScriptInPkg(envLocalName, pkgData, fsPath);

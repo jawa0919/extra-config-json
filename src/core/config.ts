@@ -21,17 +21,13 @@ export let onlyReactAppField = true;
 export const envLocalNameList = [
   ".env.local",
   ".env.dev.local",
-  ".env.build.local",
   ".env.development.local",
   ".env.test.local",
   ".env.qa.local",
   ".env.uat.local",
   ".env.stag.local",
-  ".env.stage.local",
   ".env.staging.local",
-  ".env.live.local",
   ".env.production.local",
-  ".env.prod.local",
 ];
 
 export function initConfig(): void {

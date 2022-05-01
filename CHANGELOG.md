@@ -1,5 +1,9 @@
 # Change Log
 
+# 0.1.1
+
+- fix env2json bug
+
 # 0.1.0
 
 - fix auto add pakcage.json script

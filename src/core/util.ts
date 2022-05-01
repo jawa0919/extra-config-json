@@ -39,13 +39,32 @@ export function dateTimeName(): string {
   return new Date().toISOString().substring(0, 19).replace(/[-:T]/g, "");
 }
 
-export function jsonAnyToString(res: Record<string, any>): Record<string, string> {
-  let temp: Record<string, string> = {};
+export function object2Kv(res: Record<string, any>): Record<string, string> {
+  const temp: Record<string, string> = {};
   Object.keys(res).forEach((key) => {
     if (typeof res[key] === "object") {
       temp[key] = JSON.stringify(res[key]);
     } else {
-      temp[key] = res[key];
+      temp[key] = `${res[key]}`;
+    }
+  });
+  return temp;
+}
+
+export function kv2Object(res: Record<string, string>): Record<string, any> {
+  const temp: Record<string, any> = {};
+  Object.keys(res).forEach((key) => {
+    const value = res[key];
+    try {
+      temp[key] = JSON.parse(value);
+    } catch (error) {
+      if (value === "true" || value === "false") {
+        temp[key] = Boolean(value);
+      } else if (Number(value)) {
+        temp[key] = Number(value);
+      } else {
+        temp[key] = value;
+      }
     }
   });
   return temp;

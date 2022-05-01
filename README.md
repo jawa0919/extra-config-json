@@ -19,8 +19,47 @@ Quick swap, Simple Save, Git Unchanged and Generate .env
 - [x] 生成 `.env.*.local` 时，筛选不符合`vue`的字段前缀 `VUE_APP_` 的数据(可配置)
 - [x] 生成 `.env.*.local` 时，筛选不符合`react`的字段前缀 `REACT_APP_XX` 的数据(可配置)
 - [x] 生成 `.env.*.local` 时，在 `package.json` 中添加执行脚本
+- [x] 文件互相转换时，优化对象的层级对 json 文件的影响
 
 ---
+
+# 文件互转说明
+
+1. json2env 时字段丢失。 Vue/React 的环境变量中，只有指定前缀的字段才生效，默认删除掉了不符合的字段，也可在配置关闭此功能呢
+
+2. env 文件是使用单行的键值对 k/v 系统存储数据，json 字段可以嵌套对象的情况，二级字段使用`JSON.stringify` 将对象转换为字符串，开发时请使用`JSON.parse` 将字符串转换为对象
+
+   ```json
+   {
+     "VUE_APP_A": "qwe",
+     "VUE_APP_B": 10,
+     "VUE_APP_C": 100.1,
+     "VUE_APP_D": true,
+     "VUE_APP_E": ["asd", 200, 200.2, true],
+     "VUE_APP_F": {
+       "a": "zxc",
+       "b": 300,
+       "c": 300.003,
+       "d": true,
+       "e": [400, 400.2, true],
+       "f": {
+         "h": ["g", 500, 0.00005, false]
+       }
+     }
+   }
+   ```
+
+   ```env
+   # .env.dev.local
+   VUE_APP_A = qwe
+   VUE_APP_B = 10
+   VUE_APP_C = 100.1
+   VUE_APP_D = true
+   VUE_APP_E = ["asd",200,200.2,true]
+   VUE_APP_F = {"a":"zxc","b":300,"c":300.003,"d":true,"e":[400,400.2,true],"f":{"h":["g",500,0.00005,false]}}
+   ```
+
+   ![env_vk](./docs/img/env_vk.png)
 
 ## 切换/保存
 

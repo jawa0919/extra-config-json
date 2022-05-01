@@ -5,25 +5,36 @@
  * @Description  : package.json文件处理
  */
 
-import { writeJsonSync } from "fs-extra";
+import { readJsonSync, writeJsonSync } from "fs-extra";
 import { join } from "path";
-import { NormalizedPackageJson, PackageJson } from "read-pkg-up";
 import { onlyVueAppField, onlyReactAppField } from "./config";
 import { findWorkspaceFolder } from "./util";
 
-export async function loadPkgData(fsPath: string): Promise<PackageJson | NormalizedPackageJson> {
-  console.log("pkgData");
+interface PkgData {
+  scripts?: {
+    serve?: string;
+    start?: string;
+    [key: string]: any;
+  };
+  dependencies?: {
+    vue?: string;
+    react?: string;
+    [key: string]: any;
+  };
+  [key: string]: any;
+}
+
+export function loadPkgData(fsPath: string): PkgData {
+  console.log("loadPkgData");
   let wf = findWorkspaceFolder(fsPath);
 
   let pkgPath = join(wf?.uri.fsPath || "", "package.json");
-  let pkgData = await require("read-pkg-up")({ cwd: pkgPath });
-  return pkgData.packageJson;
+  // let pkgData = await require("read-pkg-up")({ cwd: pkgPath });
+  let pkgData: PkgData = readJsonSync(pkgPath);
+  return pkgData;
 }
 
-export function vueField(
-  jsonData: Record<string, string>,
-  pkgData: PackageJson | NormalizedPackageJson
-): Record<string, string> {
+export function vueField(jsonData: Record<string, string>, pkgData: PkgData): Record<string, string> {
   console.log("vueField");
   if (pkgData.dependencies?.vue) {
     if (onlyVueAppField) {
@@ -39,10 +50,7 @@ export function vueField(
   return jsonData;
 }
 
-export function reactField(
-  jsonData: Record<string, string>,
-  pkgData: PackageJson | NormalizedPackageJson
-): Record<string, string> {
+export function reactField(jsonData: Record<string, string>, pkgData: PkgData): Record<string, string> {
   console.log("reactField");
   if (pkgData.dependencies?.react) {
     if (onlyReactAppField) {
@@ -58,7 +66,7 @@ export function reactField(
   return jsonData;
 }
 
-export function addScriptInPkg(envLocalName: string, pkgData: PackageJson | NormalizedPackageJson, fsPath: string) {
+export function addScriptInPkg(envLocalName: string, pkgData: PkgData, fsPath: string) {
   console.log("addScriptInPkg");
   let mode = envLocalName.replace(/.env./, "");
 

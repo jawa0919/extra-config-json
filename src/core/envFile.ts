@@ -28,11 +28,15 @@ async function _envToJson(...res: any[]) {
   if (fsPath === "") return;
 
   let envData = readFileSync(fsPath, "utf-8");
-  let jsonData: Record<string, string> = {};
+  let jsonData: Record<string, any> = {};
   envData.split("\n").forEach((line) => {
     if (line.startsWith("#")) return;
     let [key, value] = line.split("=").map((v) => v.trim());
-    jsonData[key] = value;
+    if (typeof value === "object") {
+      jsonData[key] = JSON.stringify(value);
+    } else {
+      jsonData[key] = `"${value}"`;
+    }
   });
 
   let wf = findWorkspaceFolder(fsPath);

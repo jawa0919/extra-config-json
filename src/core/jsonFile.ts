@@ -21,7 +21,6 @@ import {
   findWorkspaceFolder,
   jsonAnyToString,
 } from "./util";
-import { NormalizedPackageJson, PackageJson } from "read-pkg-up";
 
 export const jsonFileCMD = [
   commands.registerCommand("extra-config-json.json.save", _jsonSave),
@@ -81,7 +80,7 @@ async function _jsonToEnv(...res: any[]) {
     const jsonFileData: Record<string, any> = readJsonSync(fsPath);
 
     let jsonData = jsonAnyToString(jsonFileData);
-    let pkgData = await loadPkgData(fsPath);
+    let pkgData = loadPkgData(fsPath);
 
     jsonData = vueField(jsonData, pkgData);
     jsonData = reactField(jsonData, pkgData);

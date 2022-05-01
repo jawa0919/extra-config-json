@@ -38,3 +38,15 @@ export async function showErrorMessage(message: string): Promise<string | undefi
 export function dateTimeName(): string {
   return new Date().toISOString().substring(0, 19).replace(/[-:T]/g, "");
 }
+
+export function jsonAnyToString(res: Record<string, any>): Record<string, string> {
+  let temp: Record<string, string> = {};
+  Object.keys(res).forEach((key) => {
+    if (typeof res[key] === "object") {
+      temp[key] = JSON.stringify(res[key]);
+    } else {
+      temp[key] = res[key];
+    }
+  });
+  return temp;
+}

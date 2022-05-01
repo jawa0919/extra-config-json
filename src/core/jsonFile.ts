@@ -10,7 +10,7 @@ import { copyFileSync, ensureDirSync, readdirSync, readJsonSync, writeFileSync }
 import { join } from "path";
 import { commands } from "vscode";
 import { dirPath, envLocalNameList, historyDirName } from "./config";
-import { addScriptInPkg, loadPkgData, onlyReactField, onlyVueField } from "./pkgFile";
+import { addScriptInPkg, loadPkgData, reactField, vueField } from "./pkgFile";
 import {
   findTextDocument,
   showErrorMessage,
@@ -19,6 +19,7 @@ import {
   showQuickPick,
   dateTimeName,
   findWorkspaceFolder,
+  jsonAnyToString,
 } from "./util";
 import { NormalizedPackageJson, PackageJson } from "read-pkg-up";
 
@@ -77,18 +78,20 @@ async function _jsonToEnv(...res: any[]) {
 
   let envLocalName = await showQuickPick(envLocalNameList);
   if (envLocalName) {
-    let jsonData: Record<string, any> = readJsonSync(fsPath);
+    const jsonFileData: Record<string, any> = readJsonSync(fsPath);
+
+    let jsonData = jsonAnyToString(jsonFileData);
     let pkgData = await loadPkgData(fsPath);
 
-    onlyVueField(jsonData, pkgData);
-    onlyReactField(jsonData, pkgData);
+    jsonData = vueField(jsonData, pkgData);
+    jsonData = reactField(jsonData, pkgData);
 
     let wf = findWorkspaceFolder(fsPath);
     let bf = [`# ${envLocalName}`];
     Object.keys(jsonData).forEach((k) => bf.push(`${k} = ${jsonData[k]}`));
     let envPath = join(wf?.uri.fsPath || "", envLocalName);
     writeFileSync(envPath, bf.join("\n"), "utf-8");
-    addScriptInPkg(envLocalName, pkgData);
+    addScriptInPkg(envLocalName, pkgData, fsPath);
   }
 }
 

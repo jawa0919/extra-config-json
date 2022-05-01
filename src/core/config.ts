@@ -15,8 +15,8 @@ export const name = "extra-config-json";
 export const historyDirName = ".history";
 
 export let dirPath = join(homedir(), `.${name}`);
-export let onlyVueAppXX = true;
-export let onlyReactAppXX = true;
+export let onlyVueAppField = true;
+export let onlyReactAppField = true;
 
 export const envLocalNameList = [
   ".env.local",
@@ -35,9 +35,10 @@ export const envLocalNameList = [
 ];
 
 export function initConfig(): void {
-  let path = workspace.getConfiguration().get<string>("extra-config-json.dirPath") || dirPath;
+  let cf = workspace.getConfiguration();
+  let path = cf.get<string>("extra-config-json.dirPath") || dirPath;
   ensureDirSync(path);
   dirPath = path;
-  onlyVueAppXX = workspace.getConfiguration().get<boolean>("extra-config-json.onlyVueAppXX") || onlyVueAppXX;
-  onlyReactAppXX = workspace.getConfiguration().get<boolean>("extra-config-json.onlyReactAppXX") || onlyReactAppXX;
+  onlyVueAppField = cf.get<boolean>("extra-config-json.onlyVueAppField") || onlyVueAppField;
+  onlyReactAppField = cf.get<boolean>("extra-config-json.onlyReactAppField") || onlyReactAppField;
 }

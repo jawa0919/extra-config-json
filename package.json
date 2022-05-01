@@ -114,12 +114,12 @@
             "markdownDescription": "custom dirPath",
             "type": "string"
           },
-          "extra-config-json.onlyVueAppXX": {
+          "extra-config-json.onlyVueAppField": {
             "markdownDescription": "only VUE_APP_XX field",
             "type": "boolean",
             "default": true
           },
-          "extra-config-json.onlyReactAppXX": {
+          "extra-config-json.onlyReactAppField": {
             "markdownDescription": "only REACT_APP_XX field",
             "type": "boolean",
             "default": true

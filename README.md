@@ -2,28 +2,29 @@
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/jawa0919.extra-config-json.svg)](https://marketplace.visualstudio.com/items?itemName=jawa0919.extra-config-json) [![Installs](https://vsmarketplacebadge.apphb.com/installs/jawa0919.extra-config-json.svg)](https://marketplace.visualstudio.com/items?itemName=jawa0919.extra-config-json) [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/jawa0919.extra-config-json.svg)](https://marketplace.visualstudio.com/items?itemName=jawa0919.extra-config-json) [![GitHub issues](https://img.shields.io/github/issues/jawa0919/extra-config-json)](https://github.com/jawa0919/extra-config-json/issues)![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/jawa0919/extra-config-json)
 
-为项目配置文件 `extraConfig.json` 开发的 vscode 插件
+为项目配置文件 `extraConfig.json`/`.env.*.local` 开发的 vscode 插件
 
-快速切换，简单保存，忽略 Git
+快速切换，简单保存，忽略 Git, 生成.env
 
-Quick swap, Simple Save, Git Unchanged
+Quick swap, Simple Save, Git Unchanged and Generate .env
 
 # 功能
 
-- [x] 保存 `extraConfig.json` 到用户目录文件夹备份
-- [x] 快速替换本地保存的 `extraConfig.json`
-- [x] 本地记录切换历史文件，方便查找溯源
-- [x] 本地忽略 `extraConfig.json` 的变更，`git`提交时无视变更
-- [x] 自定义备份文件夹
-- [x] `extraConfig.json`生成 `.env.*.local`
-- [x] `.env.*`生成 `extraConfig.json`
-- [ ] 生成配置是，筛选不符合`vue`前缀`VUE_APP_`的数据
-- [ ] 生成配置是，筛选不符合`react`前缀`REACT_APP_XX`的数据
-- [ ] 在`package.json` 的添加 env 的执行脚本
+- [x] 备份 `extraConfig.json` 到用户目录文件夹(可配置)
+- [x] 快速替换本地备份保存的 `extraConfig.json`
+- [x] 切换 `extraConfig.json` 自动本地记录历史文件，方便查找溯源
+- [x] 忽略 `extraConfig.json` 的变更，`git`提交时无视变更
+- [x] `extraConfig.json` 生成 `.env.*.local`
+- [x] `.env.*` 生成 `extraConfig.json`
+- [x] 生成 `.env.*.local` 时，筛选不符合`vue`的字段前缀 `VUE_APP_` 的数据(可配置)
+- [x] 生成 `.env.*.local` 时，筛选不符合`react`的字段前缀 `REACT_APP_XX` 的数据(可配置)
+- [x] 生成 `.env.*.local` 时，在 `package.json` 中添加执行脚本
+
+---
 
 ## 切换/保存
 
-在`extraConfig.json`文件右上方有两个功能按钮，点击可以切换/保存`extraConfig.json`文件
+在 `extraConfig.json` 文件右上方有两个功能按钮，点击可以切换/保存`extraConfig.json`文件
 
 ![swap](./docs/img/swap.gif)
 
@@ -37,7 +38,7 @@ Quick swap, Simple Save, Git Unchanged
 
 使用`git`假设提交命令，忽略`extraConfig.json`的变更,只对本机生效
 
-右键点击文件时出现两个文件功能选项
+右键点击`extraConfig.json`文件时出现两个文件功能选项
 
 - `Git --assume-unchanged @extra-config-json`
 
@@ -47,6 +48,10 @@ Quick swap, Simple Save, Git Unchanged
 
   点击后取消不触发状态
 
+---
+
+![git_assume](./docs/img/git_assume.png)
+
 ```shell
 # ignore一个文件的更改又保留其初始版本
 git update-index --assume-unchanged [file-path]
@@ -54,16 +59,28 @@ git update-index --assume-unchanged [file-path]
 git update-index --no-assume-unchanged [file-path]
 ```
 
-![假设提交](./docs/img/git_assume.png)
+## env 互相转换 json
 
-## 自定义备份文件夹
+右键点击`extraConfig.json`/`.env.*.local` 文件时出现相关功能选项
 
-默认备份文件夹为`用户文件目录`下的`.extra-config-json`文件夹
+![env_to_json](./docs/img/env_to_json.png)
 
-也可自行配置，在 `vscode`的设置中找到如下配置项，写入文件夹地址
+## 配置
 
-![配置](./docs/img/setting.png)
+- 默认备份文件夹为`用户文件目录`下的`.extra-config-json`文件夹
+
+  也可自行配置，在 `vscode`的设置中找到如下配置项，写入文件夹地址
+
+- 默认对 json 文件筛选 `VUE_APP_XXX`开头的字段
+
+- 默认对 json 文件筛选 `REACT_APP_XXX`开头的字段
+
+---
+
+![setting_all](./docs/img/setting_all.png)
 
 ## 其他
+
+![home](./docs/img/home.png)
 
 欢迎大家 `提出想法` 和 `反馈问题` [issues](https://github.com/jawa0919/extra-config-json/issues)

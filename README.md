@@ -17,7 +17,8 @@ Quick swap, Simple Save, Git Unchanged and Generate .env
 - [x] `extraConfig.json` 生成 `.env.*.local`
 - [x] `.env.*` 生成 `extraConfig.json`
 - [x] 生成 `.env.*.local` 时，筛选不符合`vue`的字段前缀 `VUE_APP_` 的数据(可配置)
-- [x] 生成 `.env.*.local` 时，筛选不符合`react`的字段前缀 `REACT_APP_XX` 的数据(可配置)
+- [x] 生成 `.env.*.local` 时，筛选不符合`react`的字段前缀 `REACT_APP_` 的数据(可配置)
+- [x] 生成 `.env.*.local` 时，筛选不符合`vite`的字段前缀 `VITE_` 的数据(可配置)
 - [x] 生成 `.env.*.local` 时，在 `package.json` 中添加执行脚本
 - [x] 文件互相转换时，优化对象的层级对 json 文件的影响
 
@@ -25,9 +26,11 @@ Quick swap, Simple Save, Git Unchanged and Generate .env
 
 # 文件互转说明
 
-1. json2env 时字段丢失。 Vue/React 的环境变量中，只有指定前缀的字段才生效，默认删除掉了不符合的字段，也可在配置关闭此功能呢
+1. json2env 时字段丢失。 Vue/React 部分字段无法通过`process.env.`编译。
 
-2. env 文件是使用单行的键值对 k/v 系统存储数据，json 字段可以嵌套对象的情况，二级字段使用`JSON.stringify` 将对象转换为字符串，开发时请使用`JSON.parse` 将字符串转换为对象
+2. json2env 时字段丢失。支持`vite`的字段前缀 `VITE_`。
+
+3. env 文件是使用单行的键值对 k/v 系统存储数据，json 字段可以嵌套对象的情况，二级字段使用`JSON.stringify` 将对象转换为字符串，开发时请使用`JSON.parse` 将字符串转换为对象
 
    ```json
    {

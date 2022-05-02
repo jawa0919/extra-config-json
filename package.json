@@ -114,6 +114,11 @@
             "markdownDescription": "custom dirPath",
             "type": "string"
           },
+          "extra-config-json.onlyViteField": {
+            "markdownDescription": "only VITE_XX field",
+            "type": "boolean",
+            "default": true
+          },
           "extra-config-json.onlyVueAppField": {
             "markdownDescription": "only VUE_APP_XX field",
             "type": "boolean",

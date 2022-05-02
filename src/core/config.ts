@@ -15,6 +15,7 @@ export const name = "extra-config-json";
 export const historyDirName = ".history";
 
 export let dirPath = join(homedir(), `.${name}`);
+export let onlyViteField = true;
 export let onlyVueAppField = true;
 export let onlyReactAppField = true;
 
@@ -35,6 +36,7 @@ export function initConfig(): void {
   let path = cf.get<string>("extra-config-json.dirPath") || dirPath;
   ensureDirSync(path);
   dirPath = path;
+  onlyViteField = cf.get<boolean>("extra-config-json.onlyViteField") || onlyViteField;
   onlyVueAppField = cf.get<boolean>("extra-config-json.onlyVueAppField") || onlyVueAppField;
   onlyReactAppField = cf.get<boolean>("extra-config-json.onlyReactAppField") || onlyReactAppField;
 }

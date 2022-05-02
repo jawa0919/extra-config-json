@@ -10,7 +10,7 @@ import { copyFileSync, ensureDirSync, readdirSync, readJsonSync, writeFileSync }
 import { join } from "path";
 import { commands } from "vscode";
 import { dirPath, envLocalNameList, historyDirName } from "./config";
-import { addScriptInPkg, loadPkgData, reactField, vueField } from "./pkgFile";
+import { addScriptInPkg, loadPkgData, filterField } from "./pkgFile";
 import {
   findTextDocument,
   showErrorMessage,
@@ -82,8 +82,7 @@ async function _jsonToEnv(...res: any[]) {
     let envKvData = object2Kv(jsonObjectData);
     let pkgData = loadPkgData(fsPath);
 
-    envKvData = vueField(envKvData, pkgData);
-    envKvData = reactField(envKvData, pkgData);
+    envKvData = filterField(envKvData, pkgData);
 
     let wf = findWorkspaceFolder(fsPath);
     let bf = [`# ${envLocalName}`];

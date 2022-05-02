@@ -1,5 +1,9 @@
 # Change Log
 
+# 0.1.2
+
+- add vite field prefix `VITE_`
+
 # 0.1.1
 
 - fix env2json bug

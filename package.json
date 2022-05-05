@@ -48,12 +48,12 @@
       ],
       "explorer/context": [
         {
-          "when": "resourceFilename == extraConfig.json",
+          "when": "resourceFilename =~ /extraConfig.json|guiNConfig.json|config.json/",
           "command": "extra-config-json.json.git.assume",
           "group": "json-git@-1"
         },
         {
-          "when": "resourceFilename == extraConfig.json",
+          "when": "resourceFilename =~ /extraConfig.json|guiNConfig.json|config.json/",
           "command": "extra-config-json.json.git.no.assume",
           "group": "json-git@-2"
         },

@@ -2,7 +2,7 @@
   "name": "extra-config-json",
   "displayName": "extraConfigJson",
   "description": "extraConfig.json Quick swap, Simple Save, Git Unchanged and Generate .env",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "jawa0919",
   "author": {
     "name": "jawa0919",

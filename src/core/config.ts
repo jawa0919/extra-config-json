@@ -5,7 +5,6 @@
  * @Description  : 配置文件
  */
 
-import { ensureDirSync } from "fs-extra";
 import { homedir } from "os";
 import { join } from "path";
 import { workspace } from "vscode";
@@ -34,7 +33,6 @@ export const envLocalNameList = [
 export function initConfig(): void {
   let cf = workspace.getConfiguration();
   let path = cf.get<string>("extra-config-json.dirPath") || dirPath;
-  ensureDirSync(path);
   dirPath = path;
   onlyViteField = cf.get<boolean>("extra-config-json.onlyViteField") || onlyViteField;
   onlyVueAppField = cf.get<boolean>("extra-config-json.onlyVueAppField") || onlyVueAppField;

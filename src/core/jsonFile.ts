@@ -40,6 +40,7 @@ async function _jsonSave(...res: any[]) {
 
   let name = await showInputBox();
   if (name) {
+    ensureDirSync(dirPath);
     let jsonPath = join(dirPath, `${name}.json`);
     copyFileSync(fsPath, jsonPath);
   }
@@ -56,6 +57,7 @@ async function _jsonSwap(...res: any[]) {
     return;
   }
 
+  ensureDirSync(dirPath);
   let jsonFileNameList = readdirSync(dirPath).filter((e) => e.endsWith(".json"));
   if (jsonFileNameList.length === 0) {
     showInformationMessage("No Find Json");
@@ -65,6 +67,7 @@ async function _jsonSwap(...res: any[]) {
   let jsonFileName = await showQuickPick(jsonFileNameList);
   if (jsonFileName) {
     saveSwapHistory(fsPath);
+    ensureDirSync(dirPath);
     let jsonFilePath = join(dirPath, jsonFileName);
     copyFileSync(jsonFilePath, fsPath);
   }
@@ -122,6 +125,7 @@ export async function saveSwapHistory(fsPath: string) {
   if (fsPath === "") return;
 
   let name = dateTimeName();
+  ensureDirSync(dirPath);
   let historyDirPath = join(dirPath, historyDirName);
   ensureDirSync(historyDirPath);
 

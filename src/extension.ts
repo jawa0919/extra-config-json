@@ -11,8 +11,6 @@ import { jsonFileCMD } from "./core/jsonFile";
 import { envFileCMD } from "./core/envFile";
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "extra-config-json" is now active!');
-
   initConfig();
   vscode.workspace.onDidChangeConfiguration(() => {
     initConfig();

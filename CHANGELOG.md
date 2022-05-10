@@ -1,8 +1,13 @@
 # Change Log
 
+# 0.1.4
+
+- fix ex
+
 # 0.1.3
 
 - add Matches
+
 # 0.1.2
 
 - add vite field prefix `VITE_`
